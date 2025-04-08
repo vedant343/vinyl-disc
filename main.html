@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Vinyl Disc</title>
+    <style>
+        :root {
+            --disc-size: min(80vw, 400px); /* Responsive size with maximum limit */
+            --image-size: calc(var(--disc-size) * 0.5);
+            --hole-size: calc(var(--disc-size) * 0.15);
+            --ring-size: calc(var(--disc-size) * 0.2);
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #600eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .vinyl {
+            position: relative;
+            width: var(--disc-size);
+            height: var(--disc-size);
+            border-radius: 50%;
+            background: linear-gradient(135deg, #111 0%, #333 100%);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            animation: rotate 2s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Create the center hole */
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            width: var(--hole-size);
+            height: var(--hole-size);
+            border-radius: 50%;
+            background: white;
+            z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Create the ring around the hole */
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            width: var(--ring-size);
+            height: var(--ring-size);
+            border-radius: 50%;
+            border: 2px solid silver;
+        }
+        
+        .vinyl-image {
+            width: var(--image-size);
+            height: var(--image-size);
+            border-radius: 50%;
+            object-fit: cover;
+            animation: rotate 8s linear infinite reverse;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Create the vinyl grooves */
+        .groove {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .groove-1 { width: calc(100% - 10px); height: calc(100% - 10px); }
+        .groove-2 { width: calc(100% - 30px); height: calc(100% - 30px); }
+        .groove-3 { width: calc(100% - 50px); height: calc(100% - 50px); }
+        .groove-4 { width: calc(100% - 70px); height: calc(100% - 70px); }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            :root {
+                --disc-size: min(90vw, 300px);
+            }
+            .vinyl {
+                animation-duration: 3s; /* Slower rotation on small devices */
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .vinyl::after {
+                border-width: 1px; /* Thinner ring on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="vinyl">
+        <div class="groove groove-1"></div>
+        <div class="groove groove-2"></div>
+        <div class="groove groove-3"></div>
+        <div class="groove groove-4"></div>
+        <img class="vinyl-image" src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?w=500&auto=format&fit=crop" alt="Album cover">
+    </div>
+</body>
+</html>
